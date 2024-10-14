@@ -157,3 +157,27 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const navLinks = document.querySelectorAll('[data-nav-link]');
+  const pages = document.querySelectorAll('article');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', function () {
+      // Remove active class from all links
+      navLinks.forEach(item => item.classList.remove('active'));
+      // Hide all pages
+      pages.forEach(page => page.classList.remove('active'));
+
+      // Add active class to the clicked link
+      this.classList.add('active');
+
+      // Get the data-page attribute to show the corresponding article
+      const pageId = this.innerText.toLowerCase();
+      const activePage = document.querySelector(`article[data-page="${pageId}"]`);
+      if (activePage) {
+        activePage.classList.add('active');
+      }
+    });
+  });
+});
